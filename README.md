@@ -40,6 +40,19 @@
   - Demonstrated the use of **Navigator.push()** to navigate to different meal pages based on selected categories.
   - The example showed how to filter meals and push to a new screen using **MaterialPageRoute**.
 
+## Day Two
+### Alternative Navigation Pattern: Using Named Routes
+
+- **Named Routes Approach:**
+  - Discussed an alternative navigation approach using named routes.
+  - Mentioned the assignment of names to routes for loading screens via those names.
+
+- **Documentation Reference:**
+  - Provided a link to the official Flutter documentation for using named routes.
+  - Highlighted that while this approach exists, it is not recommended for most apps.
+
 ### Conclusion
 
-Day One of working on the Meal App focused on creating a visually appealing category screen with interactive elements. The implementation included GridView, Category model, CategoryGridItem widget, dummy data, InkWell for tap interaction, and Navigator for screen navigation. The groundwork has been laid for further development, including the integration of real meal data and the creation of detailed meal pages.
+Day One focused on creating a visually appealing category screen with interactive elements, including GridView, Category model, CategoryGridItem widget, dummy data, InkWell for tap interaction, and Navigator for screen navigation. The groundwork has been laid for further development, including the integration of real meal data and the creation of detailed meal pages.
+
+Day Two introduced an alternative navigation pattern using named routes, with a reference to the official documentation. However, it was noted that this approach is not recommended for most apps, and the current implementation with `Navigator.push()` and `MaterialPageRoute` remains the recommended approach for the Meal App.
