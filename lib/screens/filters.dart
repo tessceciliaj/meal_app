@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meal_app/screens/tabs.dart';
-import 'package:meal_app/widgets/main_drawer.dart';
+import 'package:meal_app/widgets/switch_tile_item.dart';
+
+enum Filter { glutenFree, lactoseFree, vegetarian, vegan }
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
@@ -11,6 +13,9 @@ class FiltersScreen extends StatefulWidget {
 
 class _FiltersScreenState extends State<FiltersScreen> {
   var _glutenFreeFilterSet = false;
+  var _lactoseFreeFilterSet = false;
+  var _vegetarianFilterSet = false;
+  var _veganFilterSet = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,41 +23,57 @@ class _FiltersScreenState extends State<FiltersScreen> {
       appBar: AppBar(
         title: const Text('Your Filters'),
       ),
-      drawer: MainDrawer(onSelectScreen: (identifier) {
-        Navigator.of(context).pop();
-        if (identifier == 'meals') {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (ctx) => const TabsScreen(),
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) {
+          if (didPop) return;
+          Navigator.of(context).pop({
+            Filter.glutenFree: _glutenFreeFilterSet,
+            Filter.lactoseFree: _lactoseFreeFilterSet,
+            Filter.vegetarian: _vegetarianFilterSet,
+            Filter.vegan: _veganFilterSet,
+          });
+        },
+        child: Column(
+          children: [
+            SwitchTileItem(
+              title: 'Gluten-free',
+              toggleChecked: _glutenFreeFilterSet,
+              onToggle: (isChecked) {
+                setState(() {
+                  _glutenFreeFilterSet = isChecked;
+                });
+              },
             ),
-          );
-        }
-      }),
-      body: Column(
-        children: [
-          SwitchListTile(
-            value: _glutenFreeFilterSet,
-            onChanged: (isChecked) {
-              setState(() {
-                _glutenFreeFilterSet = isChecked;
-              });
-            },
-            title: Text(
-              'Gluten-free',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
+            SwitchTileItem(
+              title: 'Lactose-free',
+              toggleChecked: _lactoseFreeFilterSet,
+              onToggle: (isChecked) {
+                setState(() {
+                  _lactoseFreeFilterSet = isChecked;
+                });
+              },
             ),
-            subtitle: Text(
-              'Only include gluten-free meals.',
-              style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
+            SwitchTileItem(
+              title: 'Vegetarian',
+              toggleChecked: _vegetarianFilterSet,
+              onToggle: (isChecked) {
+                setState(() {
+                  _vegetarianFilterSet = isChecked;
+                });
+              },
             ),
-            activeColor: Theme.of(context).colorScheme.tertiary,
-            contentPadding: const EdgeInsets.only(left: 34, right: 22),
-          ),
-        ],
+            SwitchTileItem(
+              title: 'Vegan',
+              toggleChecked: _veganFilterSet,
+              onToggle: (isChecked) {
+                setState(() {
+                  _veganFilterSet = isChecked;
+                });
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
